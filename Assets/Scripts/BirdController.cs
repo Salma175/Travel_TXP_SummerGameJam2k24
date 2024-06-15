@@ -2,44 +2,39 @@ using UnityEngine;
 
 public class BirdController : MonoBehaviour
 {
-    public float flapForce = 300f;  // Force applied when the bird flaps
     public float forwardSpeed = 5f; // Constant forward speed
+    public float turnSpeed = 3f; // Speed at which the bird turns
+    public float ascendSpeed = 2f; // Speed at which the bird ascends/descends
     public float maxPitchAngle = 30f; // Maximum pitch angle of the bird
+    public float maxYawAngle = 30f; // Maximum yaw angle of the bird
 
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = false; // Disable gravity to control the bird's vertical movement manually
     }
 
     void Update()
     {
         // Move the bird forward constantly
-        rb.velocity = new Vector3(forwardSpeed, rb.velocity.y, rb.velocity.z);
+        rb.velocity = transform.forward * forwardSpeed;
 
-        // Check for input to make the bird flap
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-        {
-            Flap();
-        }
+        // Get input for turning and ascending/descending
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        // Adjust bird's pitch based on vertical velocity
-        AdjustPitch();
-    }
+        // Calculate new rotation
+        float yaw = horizontalInput * turnSpeed;
+        float pitch = -verticalInput * ascendSpeed;
 
-    void Flap()
-    {
-        // Apply an upward force to the bird
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); // Reset Y velocity to zero before applying the flap force
-        rb.AddForce(Vector3.up * flapForce);
-    }
+        // Clamp the pitch and yaw angles
+        pitch = Mathf.Clamp(pitch, -maxPitchAngle, maxPitchAngle);
+        yaw = Mathf.Clamp(yaw, -maxYawAngle, maxYawAngle);
 
-    void AdjustPitch()
-    {
-        // Calculate the pitch angle based on vertical speed
-        float pitch = Mathf.Clamp(rb.velocity.y * maxPitchAngle / flapForce, -maxPitchAngle, maxPitchAngle);
-        transform.rotation = Quaternion.Euler(pitch, 0, 0);
+        // Apply rotation to the bird
+        transform.Rotate(pitch * Time.deltaTime, yaw * Time.deltaTime, 0);
     }
 
     void OnCollisionEnter(Collision collision)

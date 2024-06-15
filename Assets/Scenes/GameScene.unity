@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09319267a52d6e741a29550d6290e3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flapForce: 10
+  flapForce: 300
   forwardSpeed: 1
   maxPitchAngle: 30
 --- !u!65 &7509516385240621802
@@ -469,9 +469,9 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
