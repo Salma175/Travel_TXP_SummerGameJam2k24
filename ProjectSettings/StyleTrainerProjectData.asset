@@ -27,9 +27,10 @@ MonoBehaviour:
       type: {class: StyleTrainerData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
       data:
         m_Guid: ac1dc654-333e-4dc8-85e6-438df4713272
-        m_State: 3
+        m_State: 1
         m_Disposing: 0
-        m_Styles: []
+        m_Styles:
+        - rid: 301936142609809408
         m_Version: 202231001
     - rid: 301936138328211457
       type: {class: StyleTrainerData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
@@ -39,3 +40,38 @@ MonoBehaviour:
         m_Disposing: 0
         m_Styles: []
         m_Version: 202231001
+    - rid: 301936142609809408
+      type: {class: StyleData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 
+        m_State: 3
+        m_Disposing: 0
+        m_IsFallback: 0
+        m_Thumbnail:
+          rid: 301936142609809409
+        m_Visible: 1
+        selectedCheckPointGUID: 00000000-0000-0000-0000-000000000000
+        m_FavoriteCheckPointGUID: 00000000-0000-0000-0000-000000000000
+        parentID: 00000000-0000-0000-0000-000000000000
+        m_ProjectID: ac1dc654-333e-4dc8-85e6-438df4713272
+        m_TrainingSteps: 2000
+        m_CheckPoints: []
+        m_SampleOutputPrompts:
+        - 
+        - 
+        - 
+        m_TrainingSetData:
+        - m_Guid: 00000000-0000-0000-0000-000000000000
+          m_State: 3
+          m_Disposing: 0
+          m_TrainingSet: []
+          m_ProjectID: ac1dc654-333e-4dc8-85e6-438df4713272
+        m_Name: New Style
+        m_Description: Set a description here to help you remember what this style
+          is for.
+    - rid: 301936142609809409
+      type: {class: ImageArtifact, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
+      data:
+        m_Guid: 00000000-0000-0000-0000-000000000000
+        m_State: 3
+        m_Disposing: 0
