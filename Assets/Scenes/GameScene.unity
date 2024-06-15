@@ -425,9 +425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09319267a52d6e741a29550d6290e3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flapForce: 300
-  forwardSpeed: 1
+  forwardSpeed: 5
+  turnSpeed: 3
+  ascendSpeed: 2
   maxPitchAngle: 30
+  maxYawAngle: 30
 --- !u!65 &7509516385240621802
 BoxCollider:
   m_ObjectHideFlags: 0
