@@ -7,4 +7,11 @@ public static class Constants
         Env1,
         Env2,
     }
+
+    public enum AnimParam
+    {
+        Fly,
+        Die,
+        Attack
+    }
 }

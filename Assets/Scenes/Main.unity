@@ -156,10 +156,10 @@ RectTransform:
   - {fileID: 900144980}
   m_Father: {fileID: 759173254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 23}
-  m_SizeDelta: {x: 775.5045, y: 623.7491}
+  m_AnchorMin: {x: 0.30989584, y: 0.18333334}
+  m_AnchorMax: {x: 0.7890625, y: 0.77962965}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &568962930
 MonoBehaviour:
@@ -451,17 +451,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825699325}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 759173254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -68, y: 220}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchorMin: {x: 0.051086955, y: 0.48447204}
+  m_AnchorMax: {x: 0.5945652, y: 1.2608696}
+  m_AnchoredPosition: {x: 272.1739, y: -182.4845}
+  m_SizeDelta: {x: -543.4783, y: -338.50928}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &825699327
 MonoBehaviour:
@@ -533,10 +533,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 568962929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -24, y: -123}
-  m_SizeDelta: {x: 369.52, y: 146.5677}
+  m_AnchorMin: {x: 0.23320909, y: 0.17664908}
+  m_AnchorMax: {x: 0.72115326, y: 0.40418857}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &900144981
 MonoBehaviour:
@@ -558,7 +558,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "RUBY \nthe migrant"
+  m_text: '<size=34>Wings Across the World</size>
+
+    Ruby''s Flight'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -585,7 +587,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.9
+  m_fontSize: 57.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -597,7 +599,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 10
+  m_lineSpacing: 50
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
