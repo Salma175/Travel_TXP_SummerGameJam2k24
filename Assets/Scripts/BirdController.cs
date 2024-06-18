@@ -7,6 +7,7 @@ public class BirdController : MonoBehaviour
     public float ascendSpeed = 2f; // Speed at which the bird ascends/descends
     public float maxPitchAngle = 30f; // Maximum pitch angle of the bird
     public float maxYawAngle = 30f; // Maximum yaw angle of the bird
+    public float glideSpeed; // Speed at which bird glides in a direction
 
     private Rigidbody rb;
 
@@ -19,7 +20,7 @@ public class BirdController : MonoBehaviour
     void Update()
     {
         // Move the bird forward constantly
-        rb.velocity = transform.forward * forwardSpeed;
+        // rb.velocity = ;
 
         // Get input for turning and ascending/descending
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -34,7 +35,9 @@ public class BirdController : MonoBehaviour
         yaw = Mathf.Clamp(yaw, -maxYawAngle, maxYawAngle);
 
         // Apply rotation to the bird
-        transform.Rotate(pitch * Time.deltaTime, yaw * Time.deltaTime, 0);
+        // transform.Rotate(pitch * Time.deltaTime, yaw * Time.deltaTime, 0);
+        // transform.Rotate(pitch * Time.deltaTime, 0, 0);
+        rb.velocity = (transform.forward * forwardSpeed) + (transform.right * horizontalInput * glideSpeed) + (transform.up * verticalInput * glideSpeed);
     }
 
     void OnCollisionEnter(Collision collision)
