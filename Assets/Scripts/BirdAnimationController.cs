@@ -16,5 +16,10 @@ public class BirdAnimationController : MonoBehaviour
     void Update()
     {
         
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        animator.SetFloat("Vertical_Blend", verticalInput);
+        animator.SetFloat("Horizontal_Blend", horizontalInput);
     }
 }
