@@ -1026,6 +1026,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: TitleScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 2810970969736341851, guid: c2fdb993915f89a42b8439e910ae1922, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154537260372736195, guid: c2fdb993915f89a42b8439e910ae1922, type: 3}
+      propertyPath: m_text
+      value: '<size=24>Wings Across the World</size>
+
+        Breeze''s Flight'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154537260372736195, guid: c2fdb993915f89a42b8439e910ae1922, type: 3}
+      propertyPath: m_fontSize
+      value: 42.45
+      objectReference: {fileID: 0}
     - target: {fileID: 4059525702129935190, guid: c2fdb993915f89a42b8439e910ae1922, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
