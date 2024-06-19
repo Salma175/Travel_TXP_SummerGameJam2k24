@@ -12,13 +12,13 @@ public class NarrationManager : MonoBehaviour
     private TextMeshProUGUI narrativeText;
 
     private string[] storyLines = {
-        "Meet Ruby\nRuby-throated Hummingbird",
+        "Meet Breeze\na Ruby-throated Hummingbird",
         "Ready for her first migration from \nNorth America to Central America....",
         "With an incredible 3,000km to travel \nin just under three weeks, \nRuby's migration poses countless dangers.",
         "A tempestuous sky can prove fatal for the migrants.",
         "Even heavy rain alone could spell disaster for such a delicate species.",
         "A new land means new predators, and hurdles.",
-        "A new journey soon awaits Ruby!"
+        "A new journey soon awaits Breeze!"
     };
     private int currentLineIndex = 0;
 

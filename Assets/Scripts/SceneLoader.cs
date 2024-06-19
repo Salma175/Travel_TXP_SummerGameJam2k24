@@ -16,11 +16,7 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
     }
-    public void LoadSceneAdditive(string sceneName)
-    {
-        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-    }
-    public void LoadSceneWithCallback(string sceneName, System.Action callback)
+    public void LoadAdditiveSceneWithCallback(string sceneName, System.Action callback)
     {
         StartCoroutine(LoadSceneCoroutine(sceneName, callback));
     }
@@ -28,7 +24,7 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadSceneCoroutine(string sceneName, System.Action callback)
     {
         // Start loading the scene
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
         // Wait until the scene is fully loaded
         while (!asyncOperation.isDone)

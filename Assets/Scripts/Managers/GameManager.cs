@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         _loadingScreenGO.SetActive(true);
         if (level == 1)
         {
-            SceneLoader.Instance.LoadSceneWithCallback(Constants.SceneName.Env1.ToString(), onComplete);
+            SceneLoader.Instance.LoadAdditiveSceneWithCallback(Constants.SceneName.Env1.ToString(), onComplete);
         }
     }
 
