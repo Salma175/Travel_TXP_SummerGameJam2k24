@@ -51,6 +51,10 @@ public class GameManager : MonoBehaviour
     private void onComplete()
     {
         _loadingScreenGO.SetActive(false);
+        CurrentState = (GameState.Idle);
+    }
+
+    public void startGame(){
         CurrentState = (GameState.Playing);
     }
 }
