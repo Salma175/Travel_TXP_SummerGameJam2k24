@@ -1,50 +1,106 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using static Constants;
 
 public class GamePlayManager : MonoBehaviour
 {
-    public bool gameRunning;
-    public float birdHealth;
-    public Image birdHealthBar;
-    // Start is called before the first frame update
-    public GameObject retryButton;
+    [SerializeField]
+    private Image birdHealthBar;
+    [SerializeField]
+    private GameObject _levelFailGO;
+    [SerializeField]
+    private GameObject _levelSuccessGO;
+    [SerializeField]
+    private BirdController _birdController;
+
+    private float birdHealth;
 
     void Start()
     {
-        Time.timeScale = 1f;
+        ResetUi();
         birdHealth = 1f;
-        gameRunning = true;
     }
 
+  
+
+    private void OnEnable()
+    {
+        _birdController.OnNectarCollected += HandleStaminaBarOnNectarCollection ;
+        _birdController.OnDamage += HandleDamage;
+        GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        _birdController.OnNectarCollected -= HandleStaminaBarOnNectarCollection;
+        _birdController.OnDamage -= HandleDamage;
+        GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
+    }
+
+    private void HandleDamage()
+    {
+        birdHealth -= .2f;
+    }
+
+    private void HandleStaminaBarOnNectarCollection()
+    {
+        birdHealth = 1f;
+    }
+    private void HandleGameStateChanged(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.GameOver:
+                GameWon();
+                break;
+            case GameState.Paused:
+                GameFail();
+                break;
+            default:
+                break;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        if (GameManager.Instance.CurrentState == GameState.Playing)
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
 
-        birdHealth = birdHealth - (Time.deltaTime *  .1f * ((Math.Abs(horizontalInput) + 1f) * .5f) * (verticalInput + 1.5f));
-        birdHealthBar.fillAmount = birdHealth;
-        if (birdHealth <= 0){
-            GameOver();
+            birdHealth = birdHealth - (Time.deltaTime * .1f * ((Math.Abs(horizontalInput) + 1f) * .5f) * (verticalInput + 1.5f));
+            birdHealthBar.fillAmount = birdHealth;
+            if (birdHealth <= 0)
+            {
+                GameManager.Instance.CurrentState = (GameState.Paused);
+            }
         }
     }
 
 
-    public void GameOver(){
-        Time.timeScale = 0;
-        retryButton.SetActive(true);
+    public void GameFail()
+    {
+        _levelFailGO.SetActive(true);
     }
 
-    public void GameWon(){
-        gameRunning = false;
+    public void GameWon()
+    {
+        _levelSuccessGO.SetActive(true);
         // Add Game End Logic
     }
 
-    public void Restart(){
-        SceneManager.LoadScene(Constants.SceneName.Env1.ToString());
+    public void Restart()
+    {
+        birdHealth = 1f;
+        ResetUi();
+        _birdController.Restart();
+        GameManager.Instance.CurrentState = (GameState.Playing);
+    }
+
+    private void ResetUi()
+    {
+        _levelFailGO.SetActive(false);
+        _levelSuccessGO.SetActive(false);
     }
 }
