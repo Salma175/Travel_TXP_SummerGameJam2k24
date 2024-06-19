@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Constants;
 
 public class BirdController : MonoBehaviour
 {
@@ -10,46 +12,93 @@ public class BirdController : MonoBehaviour
     public float maxYawAngle = 30f; // Maximum yaw angle of the bird
     public float glideSpeed; // Speed at which bird glides in a direction
 
-    public GamePlayManager gamePlayManager;
     private Rigidbody rb;
 
     private float endPosition;
 
+    private Vector3 _startPosition;
+
+    private bool collectedNectar;
+    public bool CollectedNectar
+    {
+        get => collectedNectar;
+        private set
+        {
+            collectedNectar = value;
+            OnNectarCollected?.Invoke();
+        }
+    }
+    public event Action OnNectarCollected;
+
+    private bool onDamange;
+    public bool Damage
+    {
+        get => onDamange;
+        private set
+        {
+            onDamange = value;
+            OnDamage?.Invoke();
+        }
+    }
+    public event Action OnDamage;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.useGravity = false; // Disable gravity to control the bird's vertical movement manually
-        if (SceneManager.GetActiveScene().name == Constants.SceneName.Env1.ToString()){
-            endPosition = -2670f;
+        rb.useGravity = false;
+      
+        _startPosition = transform.position;
+        endPosition = -2670f;
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
+    }
+
+    private void HandleGameStateChanged(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.Playing:
+                break;
+            default:
+                break;
         }
     }
 
     void Update()
     {
-        // Move the bird forward constantly
-        // rb.velocity = ;
+        if (GameManager.Instance.CurrentState == GameState.Playing)
+        {  // Get input for turning and ascending/descending
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
 
-        // Get input for turning and ascending/descending
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+            // Calculate new rotation
+            float yaw = horizontalInput * turnSpeed;
+            float pitch = -verticalInput * ascendSpeed;
 
-        // Calculate new rotation
-        float yaw = horizontalInput * turnSpeed;
-        float pitch = -verticalInput * ascendSpeed;
+            pitch = Mathf.Clamp(pitch, -maxPitchAngle, maxPitchAngle);
+            yaw = Mathf.Clamp(yaw, -maxYawAngle, maxYawAngle);
 
-        // Clamp the pitch and yaw angles
-        pitch = Mathf.Clamp(pitch, -maxPitchAngle, maxPitchAngle);
-        yaw = Mathf.Clamp(yaw, -maxYawAngle, maxYawAngle);
+            // Apply rotation to the bird
+            // transform.Rotate(pitch * Time.deltaTime, yaw * Time.deltaTime, 0);
+            // transform.Rotate(pitch * Time.deltaTime, 0, 0);
 
-        // Apply rotation to the bird
-        // transform.Rotate(pitch * Time.deltaTime, yaw * Time.deltaTime, 0);
-        // transform.Rotate(pitch * Time.deltaTime, 0, 0);
+            if (transform.position.y <= 4f && verticalInput <= 0f)
+            {
+                verticalInput = 0f;
+            }
+            rb.velocity = (transform.forward * forwardSpeed) + (transform.right * horizontalInput * glideSpeed) + (transform.up * verticalInput * glideSpeed);
 
-        if (gameObject.transform.position.y <= 4f && verticalInput <= 0f){
-            verticalInput = 0f;
+            GameEndCheck();
         }
-        rb.velocity = (transform.forward * forwardSpeed) + (transform.right * horizontalInput * glideSpeed) + (transform.up * verticalInput * glideSpeed);
-        GameEndCheck();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -58,23 +107,29 @@ public class BirdController : MonoBehaviour
         // e.g., End the game if the bird hits an obstacle
     }
 
-    void OnTriggerEnter(Collider collider){
-        // Debug.Log(collider.name);
-        // Debug.Log(collider.gameObject.layer);
-        // Debug.Log(collider.gameObject.tag);
-        if (collider.gameObject.tag == "Nectar"){
-            gamePlayManager.birdHealth = 1f;
-            Destroy(collider.gameObject);
-        } else if (collider.gameObject.layer == 11)
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "Nectar")
         {
-            gamePlayManager.birdHealth -= .2f;
-            // gamePlayManager.GameOver();
+            CollectedNectar = true;
+            Destroy(collider.gameObject);
+        } 
+        else if (collider.gameObject.layer == 11)
+        {
+            Damage = true;
         }
     }
 
-    void GameEndCheck(){
-        if (gamePlayManager.gameRunning && gameObject.transform.position.z < endPosition){
-            gamePlayManager.GameWon();
+    void GameEndCheck()
+    {
+        if (gameObject.transform.position.z < endPosition)
+        {
+            GameManager.Instance.CurrentState = (GameState.GameOver);
         }
+    }
+
+    internal void Restart()
+    {
+        transform.position = _startPosition;
     }
 }

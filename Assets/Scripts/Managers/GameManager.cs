@@ -1,17 +1,43 @@
 using System;
 using UnityEngine;
+using static Constants;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _loadingScreenGO;
 
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance { get; set; }
 
-    void Awake()
+    private GameState currentState;
+    public GameState CurrentState
     {
-        Instance = this;
+        get => currentState;
+        set
+        {
+            if (currentState != value)
+            {
+                currentState = value;
+                OnGameStateChanged?.Invoke(currentState);
+            }
+        }
     }
+
+    public event Action<GameState> OnGameStateChanged;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    private void Start()
+    {
+        CurrentState = (GameState.MainMenu);
+    }
+
     public void OnLoadLevel(int level)
     {
         SceneLoader.Instance.LoadScene(Constants.SceneName.Game.ToString());
@@ -24,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void onComplete()
     {
-        _loadingScreenGO.SetActive(false);    
+        _loadingScreenGO.SetActive(false);
+        CurrentState = (GameState.Playing);
     }
 }
