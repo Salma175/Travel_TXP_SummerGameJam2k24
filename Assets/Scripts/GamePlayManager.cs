@@ -14,12 +14,15 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField]
     private BirdController _birdController;
 
+    private AudioManager audioManager;
+
     private float birdHealth;
 
     void Start()
     {
         ResetUi();
         birdHealth = 1f;
+        audioManager = GameObject.Find("Audios").GetComponent<AudioManager>();
     }
 
   
@@ -82,17 +85,20 @@ public class GamePlayManager : MonoBehaviour
     public void GameFail()
     {
         _levelFailGO.SetActive(true);
+        audioManager.gameOverSound();
     }
 
     public void GameWon()
     {
         _levelSuccessGO.SetActive(true);
+        audioManager.levelCompleteSound();
         // Add Game End Logic
     }
 
     public void Restart()
     {
         birdHealth = 1f;
+        audioManager.clickSound();
         ResetUi();
         _birdController.Restart();
         GameManager.Instance.CurrentState = (GameState.Playing);
