@@ -353,6 +353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1281359233}
   - component: {fileID: 1281359234}
+  - component: {fileID: 1281359235}
   m_Layer: 0
   m_Name: Audios
   m_TagString: Untagged
@@ -471,6 +472,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1281359235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281359232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d966a52a2f9617d42bc7e8b3e8f07851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 1281359234}
+  _bgm: {fileID: 8300000, guid: 3c1b7270e1846b948a729da194d22a21, type: 3}
+  gameOver: {fileID: 8300000, guid: 940097eb7d9275a448a98093eb38ea2b, type: 3}
+  levelComplete: {fileID: 8300000, guid: c7e127658896b6641b5e13e4b21c9ff8, type: 3}
+  buttonClick: {fileID: 8300000, guid: 7f556f56081e836499db22aba7b21f82, type: 3}
+  wingsFlap: {fileID: 8300000, guid: bc03ae01f51d8d64f8bc1dce75b7e055, type: 3}
 --- !u!1 &1328392660
 GameObject:
   m_ObjectHideFlags: 0

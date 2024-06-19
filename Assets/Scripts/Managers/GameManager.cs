@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; set; }
 
     private GameState currentState;
+    private AudioManager audioManager;
     public GameState CurrentState
     {
         get => currentState;
@@ -36,10 +37,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         CurrentState = (GameState.MainMenu);
+        audioManager = GameObject.Find("Audios").GetComponent<AudioManager>();
     }
 
     public void OnLoadLevel(int level)
     {
+        audioManager.clickSound();
         SceneLoader.Instance.LoadScene(Constants.SceneName.Game.ToString());
         _loadingScreenGO.SetActive(true);
         if (level == 1)
