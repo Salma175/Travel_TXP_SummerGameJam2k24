@@ -8,6 +8,8 @@ public class ScreenManager : MonoBehaviour
     [SerializeField]
     private GameObject _narrationScreenGO;
     [SerializeField]
+    private GameObject _controlsScreenGO;
+    [SerializeField]
     private GameObject _mapScreenGO;
 
     private GameScreen _currentScreen;
@@ -33,10 +35,14 @@ public class ScreenManager : MonoBehaviour
         _titleScreenGO.SetActive(false);
         _narrationScreenGO.SetActive(true);
     }
-
-    public void EnableMapScreen()
+    public void EnableControlsScreen()
     {
         _narrationScreenGO.SetActive(false);
+        _controlsScreenGO.SetActive(true);
+    }
+    public void EnableMapScreen()
+    {
+        _controlsScreenGO.SetActive(false);
         _mapScreenGO.SetActive(true);
     }
 
@@ -46,6 +52,7 @@ public class ScreenManager : MonoBehaviour
 
         _titleScreenGO.SetActive(true);
         _narrationScreenGO.SetActive(false);
+        _controlsScreenGO.SetActive(false);
         _mapScreenGO.SetActive(false);
     }
 }
