@@ -27,6 +27,7 @@ public static class Constants
         MainMenu,
         Playing,
         Paused,
-        GameOver
+        GameOver,
+        Idle
     }
 }
