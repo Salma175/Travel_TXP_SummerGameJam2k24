@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using static Constants;
 
 public class BirdController : MonoBehaviour
@@ -19,6 +19,8 @@ public class BirdController : MonoBehaviour
     private Vector3 _startPosition;
 
     private bool collectedNectar;
+
+    private List<GameObject> _nectarList;
     public bool CollectedNectar
     {
         get => collectedNectar;
@@ -45,6 +47,7 @@ public class BirdController : MonoBehaviour
 
     void Start()
     {
+        _nectarList = new List<GameObject>();
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
       
@@ -112,7 +115,8 @@ public class BirdController : MonoBehaviour
         if (collider.gameObject.tag == "Nectar")
         {
             CollectedNectar = true;
-            Destroy(collider.gameObject);
+            _nectarList.Add(collider.gameObject);
+            collider.gameObject.SetActive(false);
         } 
         else if (collider.gameObject.layer == 11)
         {
@@ -130,6 +134,11 @@ public class BirdController : MonoBehaviour
 
     internal void Restart()
     {
+        foreach (var item in _nectarList)
+        {
+            item.SetActive(true);
+        }
+        _nectarList.Clear();
         transform.position = _startPosition;
     }
 }
