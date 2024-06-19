@@ -20,27 +20,11 @@ public class ScreenManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (_currentScreen != GameScreen.Map)
+            if (_currentScreen == GameScreen.Title)
             {
-                ChangeScreen();
-            }
-        }
-    }
-
-    private void ChangeScreen()
-    {
-        switch(_currentScreen)
-        {
-            case GameScreen.Title:
                 _currentScreen = GameScreen.Narration;
                 EnableNarrationScreen();
-                break;
-            case GameScreen.Narration:
-                _currentScreen = GameScreen.Map;
-                EnableMapScreen();
-                break;
-            case GameScreen.Map:
-                break;
+            }
         }
     }
 
@@ -50,7 +34,7 @@ public class ScreenManager : MonoBehaviour
         _narrationScreenGO.SetActive(true);
     }
 
-    private void EnableMapScreen()
+    public void EnableMapScreen()
     {
         _narrationScreenGO.SetActive(false);
         _mapScreenGO.SetActive(true);

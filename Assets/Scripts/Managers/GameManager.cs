@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _loadingScreenGO;
+
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -11,9 +15,15 @@ public class GameManager : MonoBehaviour
     public void OnLoadLevel(int level)
     {
         SceneLoader.Instance.LoadScene(Constants.SceneName.Game.ToString());
+        _loadingScreenGO.SetActive(true);
         if (level == 1)
         {
-            SceneLoader.Instance.LoadSceneAdditive(Constants.SceneName.Env1.ToString());
+            SceneLoader.Instance.LoadSceneWithCallback(Constants.SceneName.Env1.ToString(), onComplete);
         }
+    }
+
+    private void onComplete()
+    {
+        _loadingScreenGO.SetActive(false);    
     }
 }

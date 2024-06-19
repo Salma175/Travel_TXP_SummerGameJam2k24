@@ -1,13 +1,20 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class NarrationManager : MonoBehaviour
 {
-    public TextMeshProUGUI narrativeText;
+    [SerializeField]
+    private GameObject _skipGO;
+    [SerializeField]
+    private GameObject _startGO;
+    [SerializeField]
+    private TextMeshProUGUI narrativeText;
+
     private string[] storyLines = {
         "Meet Ruby\nRuby-throated Hummingbird",
-        "Ready for her first migration from North America to Central America....",
-        "With an incredible 3,000km to travel in just under three weeks, Ruby's migration poses countless dangers.",
+        "Ready for her first migration from \nNorth America to Central America....",
+        "With an incredible 3,000km to travel \nin just under three weeks, \nRuby's migration poses countless dangers.",
         "A tempestuous sky can prove fatal for the migrants.",
         "Even heavy rain alone could spell disaster for such a delicate species.",
         "A new land means new predators, and hurdles.",
@@ -15,29 +22,52 @@ public class NarrationManager : MonoBehaviour
     };
     private int currentLineIndex = 0;
 
-    void Start()
+    private float displayDuration = 4f;
+
+    private Coroutine _narrationCoroutine;
+
+    private void OnEnable()
     {
-        ShowNextLine();
+        currentLineIndex = 0;
+        _startGO.SetActive(false);
+        _skipGO.SetActive(true);
+
+        StopAllCoroutines();
+        _narrationCoroutine = StartCoroutine(DisplayNarrative());
     }
 
-    void LateUpdate()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        StopAllCoroutines();
+    }
+
+    private IEnumerator DisplayNarrative()
+    {
+        for (; currentLineIndex < storyLines.Length; currentLineIndex++)
         {
-            ShowNextLine();
+            narrativeText.text = storyLines[currentLineIndex];
+            yield return new WaitForSeconds(displayDuration);
         }
+        _startGO.SetActive(true);
+        _skipGO.SetActive(false);
+        narrativeText.text = "Ready to Start!!";
     }
 
-    void ShowNextLine()
+    public void ShowNextLine()
     {
+        StopCoroutine(_narrationCoroutine);
+
         if (currentLineIndex < storyLines.Length)
         {
             narrativeText.text = storyLines[currentLineIndex];
             currentLineIndex++;
+            _narrationCoroutine = StartCoroutine(DisplayNarrative());
         }
         else
         {
-            narrativeText.text = "Press Enter to Start";
+            _startGO.SetActive(true);
+            _skipGO.SetActive(false);
+            narrativeText.text = "Ready to Start!!";
         }
     }
 }
