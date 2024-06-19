@@ -13,8 +13,10 @@ public class ScreenManager : MonoBehaviour
     private GameObject _mapScreenGO;
 
     private GameScreen _currentScreen;
+    private AudioManager audioManager;
     void Start()
     {
+        audioManager = GameObject.Find("Audios").GetComponent<AudioManager>();
         ResetUi();
     }
 
@@ -32,16 +34,19 @@ public class ScreenManager : MonoBehaviour
 
     private void EnableNarrationScreen()
     {
+        audioManager.clickSound();
         _titleScreenGO.SetActive(false);
         _narrationScreenGO.SetActive(true);
     }
     public void EnableControlsScreen()
     {
+        audioManager.clickSound();
         _narrationScreenGO.SetActive(false);
         _controlsScreenGO.SetActive(true);
     }
     public void EnableMapScreen()
     {
+        audioManager.clickSound();
         _controlsScreenGO.SetActive(false);
         _mapScreenGO.SetActive(true);
     }

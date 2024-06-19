@@ -10,6 +10,7 @@ public class NarrationManager : MonoBehaviour
     private GameObject _startGO;
     [SerializeField]
     private TextMeshProUGUI narrativeText;
+    private AudioManager audioManager;
 
     private string[] storyLines = {
         "Meet Breeze\na Ruby-throated Hummingbird",
@@ -25,6 +26,10 @@ public class NarrationManager : MonoBehaviour
     private float displayDuration = 4f;
 
     private Coroutine _narrationCoroutine;
+
+    void Start(){
+        audioManager = GameObject.Find("Audios").GetComponent<AudioManager>();
+    }
 
     private void OnEnable()
     {
@@ -55,6 +60,7 @@ public class NarrationManager : MonoBehaviour
 
     public void ShowNextLine()
     {
+        audioManager.clickSound();
         StopCoroutine(_narrationCoroutine);
 
         if (currentLineIndex < storyLines.Length)
