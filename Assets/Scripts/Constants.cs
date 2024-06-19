@@ -14,4 +14,11 @@ public static class Constants
         Die,
         Attack
     }
+
+    public enum GameScreen
+    {
+        Title,
+        Narration,
+        Map
+    }
 }
