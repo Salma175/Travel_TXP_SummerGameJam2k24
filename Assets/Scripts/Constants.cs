@@ -6,6 +6,7 @@ public static class Constants
         Game,
         Env1,
         Env2,
+        Env3
     }
 
     public enum AnimParam
