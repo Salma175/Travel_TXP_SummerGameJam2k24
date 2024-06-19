@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="Unity.MuseLab.Graph" ignoreIfUnreferenced="1"/>
+  <assembly fullname="Unity.Muse.Behavior" ignoreIfUnreferenced="1"/>
+</linker>
+

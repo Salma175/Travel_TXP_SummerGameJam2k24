@@ -40,7 +40,7 @@ public class GamePlayManager : MonoBehaviour
 
     private void HandleDamage()
     {
-        birdHealth -= .2f;
+        birdHealth -= .1f;
     }
 
     private void HandleStaminaBarOnNectarCollection()
