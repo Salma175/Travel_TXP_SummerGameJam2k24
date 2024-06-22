@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Constants;
@@ -13,13 +14,17 @@ public class GamePlayManager : MonoBehaviour
     private GameObject _levelSuccessGO;
     [SerializeField]
     private BirdController _birdController;
+    [SerializeField]
+    private GameObject[] AllHurdlePrefabs;
 
     private AudioManager audioManager;
 
     private float birdHealth;
+    private List<GameObject> _hurdleList;
 
     void Start()
     {
+        _hurdleList = new List<GameObject>();
         ResetUi();
         birdHealth = 1f;
         audioManager = GameObject.Find("Audios").GetComponent<AudioManager>();
@@ -72,7 +77,7 @@ public class GamePlayManager : MonoBehaviour
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
-            birdHealth = birdHealth - (Time.deltaTime * .1f * ((Math.Abs(horizontalInput) + 1f) * .5f) * (verticalInput + 1.5f));
+            birdHealth = birdHealth - (Time.deltaTime * .07f * ((Math.Abs(horizontalInput) + 1f) * .5f) * (verticalInput + 1.5f));
             birdHealthBar.fillAmount = birdHealth;
             if (birdHealth <= 0)
             {
@@ -108,5 +113,28 @@ public class GamePlayManager : MonoBehaviour
     {
         _levelFailGO.SetActive(false);
         _levelSuccessGO.SetActive(false);
+        HandleHurdleDespawn();
+        HandleHurdleSpawn();
+    }
+    private void HandleHurdleSpawn(){
+        for (int i = 0; i < 60; i++)
+        {
+            _hurdleList.Add(Instantiate(
+                AllHurdlePrefabs[UnityEngine.Random.Range(0, 2)],
+                new Vector3(
+                    _birdController.gameObject.transform.position.x + UnityEngine.Random.Range(-20f, 20f),
+                    _birdController.gameObject.transform.position.y + UnityEngine.Random.Range(-20f, 20f),
+                    _birdController.gameObject.transform.position.x + UnityEngine.Random.Range(-20f, 20f) - (200f * (i + 1))
+                ), 
+                Quaternion.identity
+            ));
+        }
+    }
+
+    private void HandleHurdleDespawn(){
+        foreach (var item in _hurdleList)
+        {
+            Destroy(item);
+        }
     }
 }
