@@ -263,6 +263,9 @@ MonoBehaviour:
   _levelFailGO: {fileID: 584862513}
   _levelSuccessGO: {fileID: 1393980558}
   _birdController: {fileID: 1210361385}
+  AllHurdlePrefabs:
+  - {fileID: 1651518466640476669, guid: dd93ad4c40f649b4a9aa636377b20483, type: 3}
+  - {fileID: 7372169343000825974, guid: 3134ebc7dabca1843b8cd5f0e6587bc0, type: 3}
 --- !u!4 &342249083
 Transform:
   m_ObjectHideFlags: 0

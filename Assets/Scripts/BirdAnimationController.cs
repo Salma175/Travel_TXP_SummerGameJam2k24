@@ -18,6 +18,7 @@ public class BirdAnimationController : MonoBehaviour
     public IEnumerator WaitAndStartGame(float timeInSeconds){
         yield return new WaitForSeconds(timeInSeconds);
         animator.SetTrigger(AnimParam.Fly.ToString());
+        yield return new WaitForSeconds(.5f);
         GameManager.Instance.startGame();
     }
 
